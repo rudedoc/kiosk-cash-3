@@ -4,6 +4,6 @@
 </template>
 
 <script setup>
-import LandingPage from './pages/LandingPage.vue'
-import Toast from 'primevue/toast'; // Import Toast component
+import LandingPage from './pages/LandingPage.vue';
+import Toast from 'primevue/toast';
 </script>
