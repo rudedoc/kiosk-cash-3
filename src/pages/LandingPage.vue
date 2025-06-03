@@ -4,19 +4,13 @@
     <Card class="w-full max-w-3xl shadow-2 border-round-xl">
       <template #header>
         <div
-          class="p-4 bg-secondary text-primary-contrast border-round-top-xl flex align-items-center justify-content-between">
+          class="p-4 bg-secondary text-primary-contrast border-round-top-xl flex align-items-center justify-content-center">
           <div class="logo-container mr-4">
             <Logo :svgSrc="bankLogoPath" width="150px" class="animated-logo" />
           </div>
 
-          <div class="text-content text-right flex-grow-1">
-            <h1 class="text-5xl font-semibold m-0 animated-title-text">Welcome to Kiosk Cash</h1>
-            <p class="text-2xl text-primary-700 mt-2 mb-1 animated-subtitle-text">
-              Please select an option to continue
-            </p>
-            <p class="text-lg text-primary-600 mt-1" data-testid="language-display">
-              Current Language: {{ atmStore.currentLanguage }}
-            </p>
+          <div class="text-content text-right">
+            <AnimatedTitle />
           </div>
         </div>
       </template>
@@ -50,10 +44,8 @@
               class="p-button-lg p-button-contrast w-full h-6rem text-2xl"
               @click="handleOption('transfer')" />
           </div>
-          <!-- Removed Change PIN and Other Services buttons -->
         </div>
 
-        <!-- New Card for Ticket Checking -->
         <div class="col-12 p-2 mt-3">
           <Card class="shadow-1 border-round">
             <template #title>
@@ -141,6 +133,7 @@ import Dialog from 'primevue/dialog';
 import InputNumber from 'primevue/inputnumber'; // Import InputNumber
 
 import bankLogoPath from '@/assets/logo.svg';
+import AnimatedTitle from '../components/AnimatedTitle.vue';
 
 const toast = useToast();
 const atmStore = useAtmStore();
