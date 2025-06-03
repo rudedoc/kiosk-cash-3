@@ -1,0 +1,8 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        .arrow1-fill { fill: #FF8C00; } 
+        .arrow2-fill { fill: #4682B4; } 
+    </style>
+    <path class="arrow1-fill" d="M25 60 L50 35 L55 40 L35 60 L55 80 L50 85 Z"/>
+    <path class="arrow2-fill" d="M75 40 L50 15 L45 20 L65 40 L45 60 L50 65 Z"/>
+</svg>
