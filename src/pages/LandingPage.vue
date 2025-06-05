@@ -1,101 +1,98 @@
 <template>
-  <div
-    class="atm-landing-page min-h-screen flex flex-column align-items-center justify-content-center p-2 sm:p-4">
-    <Card class="w-full max-w-3xl shadow-2 border-round-xl">
-      <template #header>
-        <div
-          class="p-4 bg-secondary text-primary-contrast border-round-top-xl flex align-items-center justify-content-center">
-          <div class="logo-container mr-4">
-            <Logo :svgSrc="bankLogoPath" width="150px" class="animated-logo" />
-          </div>
+  <Card class="w-full max-w-3xl shadow-2 border-round-xl atm-fixed-height-card">
+    <template #header>
+      <div
+        class="p-4 bg-secondary text-primary-contrast border-round-top-xl flex align-items-center justify-content-center">
+        <div class="logo-container mr-4">
+          <Logo :svgSrc="bankLogoPath" width="150px" class="animated-logo" />
+        </div>
 
-          <div class="text-content text-right">
-            <AnimatedTitle />
-          </div>
-        </div>
-      </template>
-      <template #content>
-        <div class="col-12 p-2 mt-3">
-          <div class="flex justify-content-center align-items-center gap-5">
-            <InputNumber
-              id="barcodeInput"
-              v-model="barcodeValue"
-              placeholder="Please scan your ticket..."
-              class="w-full md:w-20rem text-lg"
-              size="large"
-              :useGrouping="false" />
-            <Button
-              :loading="isCheckingTicket"
-              label="Check Ticket"
-              icon="pi pi-ticket"
-              class="p-button-lg p-button-raised p-button-primary w-full md:w-auto text-2xl h-3rem"
-              @click="handleCheckTicket" />
-          </div>
-        </div>
-        <div class="grid atm-options p-3">
-          <div class="col-12 md:col-6 p-2">
-            <Button
-              label="Withdraw Cash"
-              icon="pi pi-money-bill"
-              class="p-button-lg main-menu-button w-full h-6rem text-2xl"
-              @click="handleOption('withdraw')" />
-          </div>
-          <div class="col-12 md:col-6 p-2">
-            <Button
-              label="Deposit Funds"
-              icon="pi pi-upload"
-              class="p-button-lg main-menu-button w-full h-6rem text-2xl"
-              @click="handleOption('deposit')" />
-          </div>
-        </div>
-      </template>
-      <template #footer>
-        <div class="p-3 text-center">
-          <Button
-            label="Help"
-            icon="pi pi-question-circle"
-            class="p-button-text p-button-sm mr-2 text-color-secondary text-lg"
-            @click="showHelp" />
-          <Button
-            :label="`Language: ${atmStore.currentLanguage}`"
-            icon="pi pi-globe"
-            class="p-button-text p-button-sm text-color-secondary text-lg"
-            @click="toggleLanguage"
-            data-testid="toggle-language-button" />
-        </div>
-      </template>
-    </Card>
-
-    <Dialog
-      v-model:visible="isShowTicketDetailDialog"
-      modal
-      header="Ticket Details"
-      :style="{ width: '25rem' }">
-      <div class="flex flex-column gap-4 py-2">
-        <div class="flex align-items-center gap-3">
-          <label for="ticketBarcode" class="font-semibold w-8rem">Barcode:</label>
-          <span id="ticketBarcode" class="flex-auto">{{ ticketDetails.ean_code }}</span>
-        </div>
-        <div class="flex align-items-center gap-3">
-          <label for="ticketAmount" class="font-semibold w-8rem">Amount:</label>
-          <span id="ticketAmount" class="flex-auto">{{ ticketDetails.amount }}</span>
-        </div>
-        <div class="flex align-items-center gap-3">
-          <label for="ticketStatus" class="font-semibold w-8rem">Status:</label>
-          <span id="ticketStatus" class="flex-auto">{{ ticketDetails.state }}</span>
+        <div class="text-content text-right">
+          <AnimatedTitle />
         </div>
       </div>
-      <template #footer>
-        <div class="flex justify-content-end gap-2 mt-4">
+    </template>
+    <template #content>
+      <div class="col-12 p-2 mt-3">
+        <div class="flex justify-content-center align-items-center gap-5">
+          <InputNumber
+            id="barcodeInput"
+            v-model="barcodeValue"
+            placeholder="Please scan your ticket..."
+            class="w-full md:w-20rem text-lg"
+            size="large"
+            :useGrouping="false" />
           <Button
-            type="button"
-            label="Close"
-            severity="secondary"
-            @click="isShowTicketDetailDialog = false"></Button>
+            :loading="isCheckingTicket"
+            label="Check Ticket"
+            icon="pi pi-ticket"
+            class="p-button-lg p-button-raised p-button-primary w-full md:w-auto text-2xl h-3rem"
+            @click="handleCheckTicket" />
         </div>
-      </template>
-    </Dialog>
-  </div>
+      </div>
+      <div class="grid atm-options p-3">
+        <div class="col-12 md:col-6 p-2">
+          <Button
+            label="Withdraw Cash"
+            icon="pi pi-money-bill"
+            class="p-button-lg main-menu-button w-full h-6rem text-2xl"
+            @click="handleWithdraw" />
+        </div>
+        <div class="col-12 md:col-6 p-2">
+          <Button
+            label="Deposit Funds"
+            icon="pi pi-upload"
+            class="p-button-lg main-menu-button w-full h-6rem text-2xl"
+            @click="handleOption('deposit')" />
+        </div>
+      </div>
+    </template>
+    <template #footer>
+      <div class="p-3 text-center">
+        <Button
+          label="Help"
+          icon="pi pi-question-circle"
+          class="p-button-text p-button-sm mr-2 text-color-secondary text-lg"
+          @click="showHelp" />
+        <Button
+          :label="`Language: ${atmStore.currentLanguage}`"
+          icon="pi pi-globe"
+          class="p-button-text p-button-sm text-color-secondary text-lg"
+          @click="toggleLanguage"
+          data-testid="toggle-language-button" />
+      </div>
+    </template>
+  </Card>
+
+  <Dialog
+    v-model:visible="isShowTicketDetailDialog"
+    modal
+    header="Ticket Details"
+    :style="{ width: '25rem' }">
+    <div class="flex flex-column gap-4 py-2">
+      <div class="flex align-items-center gap-3">
+        <label for="ticketBarcode" class="font-semibold w-8rem">Barcode:</label>
+        <span id="ticketBarcode" class="flex-auto">{{ ticketDetails.ean_code }}</span>
+      </div>
+      <div class="flex align-items-center gap-3">
+        <label for="ticketAmount" class="font-semibold w-8rem">Amount:</label>
+        <span id="ticketAmount" class="flex-auto">{{ ticketDetails.amount }}</span>
+      </div>
+      <div class="flex align-items-center gap-3">
+        <label for="ticketStatus" class="font-semibold w-8rem">Status:</label>
+        <span id="ticketStatus" class="flex-auto">{{ ticketDetails.state }}</span>
+      </div>
+    </div>
+    <template #footer>
+      <div class="flex justify-content-end gap-2 mt-4">
+        <Button
+          type="button"
+          label="Close"
+          severity="secondary"
+          @click="isShowTicketDetailDialog = false"></Button>
+      </div>
+    </template>
+  </Dialog>
 </template>
 
 <script setup>
@@ -112,7 +109,9 @@ import InputNumber from 'primevue/inputnumber';
 
 import bankLogoPath from '@/assets/logo.svg';
 import AnimatedTitle from '../components/AnimatedTitle.vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const toast = useToast();
 const atmStore = useAtmStore();
 
@@ -148,7 +147,8 @@ const toggleLanguage = () => {
   });
 };
 
-// New handler for checking the ticket
+const handleWithdraw = () => {};
+
 const handleCheckTicket = async () => {
   if (barcodeValue.value) {
     isCheckingTicket.value = true;
@@ -288,5 +288,24 @@ const handleCheckTicket = async () => {
 .main-menu-button:focus {
   background-color: #888 !important;
   border-color: #888 !important;
+}
+
+.atm-fixed-height-card :deep(.p-card) {
+  height: 1000px; /* Or your desired fixed height, e.g., 80vh, 600px */
+  display: flex;
+  flex-direction: column;
+}
+
+.atm-fixed-height-card :deep(.p-card-body) {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Allows the body to take up available space */
+  overflow: hidden; /* Important to contain the p-card-content */
+}
+
+.atm-fixed-height-card :deep(.p-card-content) {
+  flex-grow: 1; /* Allows content to take up available space within the body */
+  overflow-y: auto; /* Enables vertical scrolling for the content */
+  padding-right: 0.5rem; /* Optional: add a little padding to avoid scrollbar overlapping content too much */
 }
 </style>

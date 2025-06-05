@@ -1,19 +1,26 @@
 <template>
-  <Toast position="top-right" />
-  <LandingPage />
+  <div
+    class="main-layout-container min-h-screen flex flex-column align-items-center justify-content-center p-2 sm:p-4">
+    <Toast position="top-right" />
+    <RouterView />
+  </div>
 </template>
 
 <script setup>
-import LandingPage from './pages/LandingPage.vue';
 import Toast from 'primevue/toast';
 </script>
 
-<style>
+<style scoped>
 .p-toast-message .p-toast-summary {
   font-family: sans-serif;
 }
 
 .p-toast-message .p-toast-detail {
   font-family: sans-serif;
+}
+
+.main-layout-container {
+  font-family: sans-serif;
+  background-color: #eee;
 }
 </style>
