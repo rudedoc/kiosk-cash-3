@@ -15,12 +15,14 @@
     <template #content>
       <div class="col-12 p-2 mt-3">
         <div class="flex justify-content-center align-items-center gap-5">
-          <InputNumber
+          <InputText
             id="barcodeInput"
+            type="tel"
             v-model="barcodeValue"
             placeholder="Please scan your ticket..."
             class="w-full md:w-20rem text-lg"
             size="large"
+            v-keyfilter="/\d/"
             :useGrouping="false" />
           <Button
             :loading="isCheckingTicket"
@@ -105,7 +107,7 @@ import Logo from '@/components/Logo.vue';
 import Button from 'primevue/button';
 import Card from 'primevue/card';
 import Dialog from 'primevue/dialog';
-import InputNumber from 'primevue/inputnumber';
+import InputText from 'primevue/inputtext';
 
 import bankLogoPath from '@/assets/logo.svg';
 import AnimatedTitle from '../components/AnimatedTitle.vue';
@@ -118,7 +120,7 @@ const atmStore = useAtmStore();
 const displayActionDialog = ref(false);
 const isShowTicketDetailDialog = ref(false);
 const selectedActionMessage = ref('');
-const barcodeValue = ref(29608897);
+const barcodeValue = ref('');
 const ticketDetails = ref(null);
 const isCheckingTicket = ref(false);
 
@@ -147,9 +149,7 @@ const toggleLanguage = () => {
   });
 };
 
-const handleWithdraw = () => {
-  router.push({ name: 'Detail' });
-};
+const handleWithdraw = () => {};
 
 const handleCheckTicket = async () => {
   if (barcodeValue.value) {
@@ -163,6 +163,7 @@ const handleCheckTicket = async () => {
     });
     try {
       const result = await window.hardwareAPI.checkTicket(barcodeValue.value);
+      console.log(result.data);
       if (!result.data) {
         toast.add({
           severity: 'error',
@@ -170,11 +171,12 @@ const handleCheckTicket = async () => {
           detail: `No ticket was found for: ${barcodeValue.value} .`,
           life: 3000,
         });
+      } else {
+        ticketDetails.value = result.data;
+        isShowTicketDetailDialog.value = true;
+        atmStore.setCurrentTicketDetails(result.data);
+        router.push({ name: 'Detail' });
       }
-      ticketDetails.value = result.data;
-      isShowTicketDetailDialog.value = true;
-      atmStore.setCurrentTicketDetails(result.data);
-      router.push({ name: 'Detail' });
     } catch (error) {
       console.log(`Error during ticket check IPC: ${error.message}`, {
         isError: true,
@@ -190,7 +192,7 @@ const handleCheckTicket = async () => {
     } finally {
       isCheckingTicket.value = false;
     }
-    barcodeValue.value = 29608897;
+    barcodeValue.value = null;
   } else {
     selectedActionMessage.value = 'Please enter a barcode number.';
     toast.add({

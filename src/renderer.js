@@ -9,6 +9,7 @@ import { createPinia } from 'pinia';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import router from './router';
+import { KeyFilter } from 'primevue';
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -23,7 +24,7 @@ app.use(PrimeVue, {
     },
   },
 });
-
+app.directive('keyfilter', KeyFilter);
 app.use(ToastService);
 
 app.mount('#app');

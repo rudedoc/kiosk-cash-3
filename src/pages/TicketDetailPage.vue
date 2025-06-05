@@ -2,7 +2,7 @@
   <div v-if="ticket" class="w-full max-w-3xl mx-auto">
     <Card class="w-full max-w-3xl shadow-2 border-round-xl fixed-height-card">
       <template #title>
-        <div class="text-2xl font-bold text-primary text-center mb-4">Ticket Details</div>
+        <div class="text-2xl font-bold text-center mb-4">Ticket Details</div>
       </template>
       <template #content>
         <div class="space-y-4">
@@ -45,7 +45,12 @@
               <Button
                 :label="`Cash Out ${formatCurrency(ticket.amount, ticket.currency)}`"
                 icon="pi pi-money-bill"
-                class="p-button-secondary w-full p-button-lg text-xl h-6rem"
+                class="w-full p-button-lg text-xl h-6rem"
+                :class="
+                  ticket.state !== 'pending' || ticket.amount <= 0
+                    ? 'p-button-secondary'
+                    : 'p-button-primary'
+                "
                 @click="handleCashOutTicket"
                 :loading="isCashingOut"
                 :disabled="ticket.state !== 'pending' || ticket.amount <= 0" />
