@@ -1,6 +1,6 @@
 <template>
   <div
-    class="atm-landing-page min-h-screen flex flex-column align-items-center justify-content-center p-2 sm:p-4 bg-surface-ground">
+    class="atm-landing-page min-h-screen flex flex-column align-items-center justify-content-center p-2 sm:p-4">
     <Card class="w-full max-w-3xl shadow-2 border-round-xl">
       <template #header>
         <div
@@ -15,37 +15,6 @@
         </div>
       </template>
       <template #content>
-        <div class="grid atm-options p-3">
-          <div class="col-12 md:col-6 p-2">
-            <Button
-              label="Withdraw Cash"
-              icon="pi pi-money-bill"
-              class="p-button-lg p-button-contrast w-full h-6rem text-2xl"
-              @click="handleOption('withdraw')" />
-          </div>
-          <div class="col-12 md:col-6 p-2">
-            <Button
-              label="Check Balance"
-              icon="pi pi-search"
-              class="p-button-lg p-button-contrast w-full h-6rem text-2xl"
-              @click="handleOption('balance')" />
-          </div>
-          <div class="col-12 md:col-6 p-2">
-            <Button
-              label="Deposit Funds"
-              icon="pi pi-upload"
-              class="p-button-lg p-button-contrast w-full h-6rem text-2xl"
-              @click="handleOption('deposit')" />
-          </div>
-          <div class="col-12 md:col-6 p-2">
-            <Button
-              label="Transfer Funds"
-              icon="pi pi-send"
-              class="p-button-lg p-button-contrast w-full h-6rem text-2xl"
-              @click="handleOption('transfer')" />
-          </div>
-        </div>
-
         <div class="col-12 p-2 mt-3">
           <Card class="shadow-1 border-round">
             <template #title>
@@ -69,6 +38,22 @@
               </div>
             </template>
           </Card>
+        </div>
+        <div class="grid atm-options p-3">
+          <div class="col-12 md:col-6 p-2">
+            <Button
+              label="Withdraw Cash"
+              icon="pi pi-money-bill"
+              class="p-button-lg main-menu-button w-full h-6rem text-2xl"
+              @click="handleOption('withdraw')" />
+          </div>
+          <div class="col-12 md:col-6 p-2">
+            <Button
+              label="Deposit Funds"
+              icon="pi pi-upload"
+              class="p-button-lg main-menu-button w-full h-6rem text-2xl"
+              @click="handleOption('deposit')" />
+          </div>
         </div>
       </template>
       <template #footer>
@@ -224,6 +209,7 @@ const handleCheckTicket = async () => {
 <style scoped>
 .atm-landing-page {
   font-family: sans-serif;
+  background-color: #eee;
 }
 
 @keyframes pulseLogo {
@@ -297,5 +283,17 @@ const handleCheckTicket = async () => {
 }
 .text-content {
   align-items: flex-end;
+}
+
+.main-menu-button {
+  background-color: #777 !important;
+  border-color: #777 !important;
+  color: #ffffff !important;
+}
+
+.main-menu-button:hover,
+.main-menu-button:focus {
+  background-color: #888 !important;
+  border-color: #888 !important;
 }
 </style>
