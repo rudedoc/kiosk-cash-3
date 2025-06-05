@@ -16,28 +16,21 @@
       </template>
       <template #content>
         <div class="col-12 p-2 mt-3">
-          <Card class="shadow-1 border-round">
-            <template #title>
-              <div class="text-center text-xl font-semibold">Validate Ticket</div>
-            </template>
-            <template #content>
-              <div class="flex flex-column align-items-center gap-3">
-                <label for="barcodeInput" class="text-lg">Enter Barcode Number:</label>
-                <InputNumber
-                  id="barcodeInput"
-                  v-model="barcodeValue"
-                  placeholder="Scan or type barcode"
-                  class="w-full md:w-20rem text-lg"
-                  :useGrouping="false" />
-                <Button
-                  :loading="isCheckingTicket"
-                  label="Check Ticket"
-                  icon="pi pi-ticket"
-                  class="p-button-lg p-button-raised p-button-primary mt-2 w-full md:w-auto text-xl"
-                  @click="handleCheckTicket" />
-              </div>
-            </template>
-          </Card>
+          <div class="flex justify-content-center align-items-center gap-5">
+            <InputNumber
+              id="barcodeInput"
+              v-model="barcodeValue"
+              placeholder="Please scan your ticket..."
+              class="w-full md:w-20rem text-lg"
+              size="large"
+              :useGrouping="false" />
+            <Button
+              :loading="isCheckingTicket"
+              label="Check Ticket"
+              icon="pi pi-ticket"
+              class="p-button-lg p-button-raised p-button-primary w-full md:w-auto text-2xl h-3rem"
+              @click="handleCheckTicket" />
+          </div>
         </div>
         <div class="grid atm-options p-3">
           <div class="col-12 md:col-6 p-2">
@@ -115,7 +108,7 @@ import Logo from '@/components/Logo.vue';
 import Button from 'primevue/button';
 import Card from 'primevue/card';
 import Dialog from 'primevue/dialog';
-import InputNumber from 'primevue/inputnumber'; // Import InputNumber
+import InputNumber from 'primevue/inputnumber';
 
 import bankLogoPath from '@/assets/logo.svg';
 import AnimatedTitle from '../components/AnimatedTitle.vue';
@@ -126,7 +119,7 @@ const atmStore = useAtmStore();
 const displayActionDialog = ref(false);
 const isShowTicketDetailDialog = ref(false);
 const selectedActionMessage = ref('');
-const barcodeValue = ref(null); // Add ref for barcodeValue
+const barcodeValue = ref(29608897);
 const ticketDetails = ref(null);
 const isCheckingTicket = ref(false);
 
@@ -192,7 +185,7 @@ const handleCheckTicket = async () => {
     } finally {
       isCheckingTicket.value = false;
     }
-    barcodeValue.value = null; // Optionally clear after check
+    barcodeValue.value = 29608897;
   } else {
     selectedActionMessage.value = 'Please enter a barcode number.';
     toast.add({
