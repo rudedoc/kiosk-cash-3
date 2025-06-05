@@ -10,7 +10,7 @@
 import Toast from 'primevue/toast';
 </script>
 
-<style scoped>
+<style>
 .p-toast-message .p-toast-summary {
   font-family: sans-serif;
 }
@@ -22,5 +22,11 @@ import Toast from 'primevue/toast';
 .main-layout-container {
   font-family: sans-serif;
   background-color: #eee;
+}
+
+.fixed-height-card {
+  height: 600px;
+  display: flex;
+  flex-direction: column;
 }
 </style>

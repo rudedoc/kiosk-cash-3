@@ -1,5 +1,5 @@
 <template>
-  <Card class="w-full max-w-3xl shadow-2 border-round-xl atm-fixed-height-card">
+  <Card class="w-full max-w-3xl shadow-2 border-round-xl fixed-height-card">
     <template #header>
       <div
         class="p-4 bg-secondary text-primary-contrast border-round-top-xl flex align-items-center justify-content-center">
@@ -147,7 +147,9 @@ const toggleLanguage = () => {
   });
 };
 
-const handleWithdraw = () => {};
+const handleWithdraw = () => {
+  router.push({ name: 'Detail' });
+};
 
 const handleCheckTicket = async () => {
   if (barcodeValue.value) {
@@ -171,6 +173,8 @@ const handleCheckTicket = async () => {
       }
       ticketDetails.value = result.data;
       isShowTicketDetailDialog.value = true;
+      atmStore.setCurrentTicketDetails(result.data);
+      router.push({ name: 'Detail' });
     } catch (error) {
       console.log(`Error during ticket check IPC: ${error.message}`, {
         isError: true,
@@ -182,6 +186,7 @@ const handleCheckTicket = async () => {
         detail: `Unkown Error: ${barcodeValue.value} .`,
         life: 3000,
       });
+      atmStore.clearCurrentTicketDetails();
     } finally {
       isCheckingTicket.value = false;
     }
@@ -288,24 +293,5 @@ const handleCheckTicket = async () => {
 .main-menu-button:focus {
   background-color: #888 !important;
   border-color: #888 !important;
-}
-
-.atm-fixed-height-card :deep(.p-card) {
-  height: 1000px; /* Or your desired fixed height, e.g., 80vh, 600px */
-  display: flex;
-  flex-direction: column;
-}
-
-.atm-fixed-height-card :deep(.p-card-body) {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1; /* Allows the body to take up available space */
-  overflow: hidden; /* Important to contain the p-card-content */
-}
-
-.atm-fixed-height-card :deep(.p-card-content) {
-  flex-grow: 1; /* Allows content to take up available space within the body */
-  overflow-y: auto; /* Enables vertical scrolling for the content */
-  padding-right: 0.5rem; /* Optional: add a little padding to avoid scrollbar overlapping content too much */
 }
 </style>
